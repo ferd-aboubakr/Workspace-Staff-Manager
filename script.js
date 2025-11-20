@@ -298,20 +298,49 @@ newWorkerForm.onsubmit = (e) => {
     const email = document.getElementById('workerEmail').value.trim();
     const phone = document.getElementById('workerPhone').value.trim();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const phoneRegex = /^\+?[0-9\s\-\(\)]{7,15}$/;
+    const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+
+ 
+
+    if (!emailRegex.test(email)) {
+        alert("Invalid Email Address. Please format it like 'user@example.com'.");
+        return; 
+    }
+
+    if (!phoneRegex.test(phone)) {
+        alert("Invalid Phone Number. Allowed characters: +, -, (, ), spaces, and digits.");
+        return; 
+    }
+
+    if (photoUrl && !urlRegex.test(photoUrl)) {
+        alert("Invalid Photo URL. Please enter a valid web link.");
+        return; 
+    }
+
     const experiences = [];
     document.querySelectorAll('.experience-form-group').forEach(group => {
         const company = group.querySelector('.exp-company').value;
         const start = group.querySelector('.exp-start-date').value;
         const end = group.querySelector('.exp-end-date').value;
         
+        if(start > end) {
+            alert(`Experience at ${company}: Start date cannot be after End date.`);
+            return; 
+        }
+        
         experiences.push({ company, start, end });
     });
     
+
     const newEmployee = {
         id: nextEmployeeId++,
         name,
         role,
-        photoUrl: photoUrl || DEFAULT_PHOTO,
+        
+        photoUrl: photoUrl || DEFAULT_PHOTO, 
         email,
         phone,
         experiences,
