@@ -174,6 +174,7 @@ function viewInfo(employeeId) {
             <div class="contact-info">
                 <p><span class="material-icons">email</span> ${employee.email}</p>
                 <p><span class="material-icons">phone</span> ${employee.phone}</p>
+                <p>${employee.location}</p>
             </div>
             
             <h3>Professional Experience</h3>
