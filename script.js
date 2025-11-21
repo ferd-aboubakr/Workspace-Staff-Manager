@@ -57,8 +57,8 @@ function addExperienceField(company = '', startDate = '', endDate = '') {
     div.className = 'experience-form-group';
     div.innerHTML = `
         <input type="text" placeholder="Company Name" class="exp-company" value="${company}" required>
-        <input type="date" placeholder="Start Date" class="exp-start-date" value="${startDate}" required>
-        <input type="date" placeholder="End Date" class="exp-end-date" value="${endDate}" required>
+        <input type="date"  class="exp-start-date" value="${startDate}" required>
+        <input type="date"  class="exp-end-date" value="${endDate}" required>
         <button type="button" class="btn-remove-exp">
             <span class="material-icons">remove_circle_outline</span>
         </button>
@@ -145,6 +145,17 @@ function removeEmployeeFromZone(employeeId) {
     renderAll();
 }
 
+//affichage du profil 
+function viewInfo(employeeId)
+{
+   const employee = employees.find(e => e.id === employeeId);
+   alert(employee.name)
+   console.log(employee.name)
+   alert(employee.role)
+  
+
+}
+
 // --- MODALE DE SÉLECTION D'EMPLOYÉ PAR ZONE ---
 
 function showAssignmentList(zoneId) {
@@ -213,7 +224,9 @@ function renderUnassignedStaff() {
         card.setAttribute('data-employee-id', employee.id);
         
         card.innerHTML = `
+            <button class="btn-info" id= "view-info">
             <img src="${employee.photoUrl || DEFAULT_PHOTO}" alt="${employee.name}">
+            </button>
             <div class="employee-info">
                 <p><strong>${employee.name}</strong></p>
                 <p>${employee.role.charAt(0).toUpperCase() + employee.role.slice(1)}</p>
@@ -227,6 +240,9 @@ function renderUnassignedStaff() {
             e.stopPropagation(); 
             deleteEmployee(employee.id);
         });
+        card.querySelector('.btn-info').addEventListener('click', (e) => {
+                viewInfo(employee.id);
+            });
         
         unassignedStaffList.appendChild(card);
     });
@@ -255,7 +271,9 @@ function renderFloorPlan() {
             pill.setAttribute('data-employee-id', employee.id);
             
             pill.innerHTML = `
+                <button class="btn-info" id="view-info">
                 <img src="${employee.photoUrl || DEFAULT_PHOTO}" alt="${employee.name}">
+                </button>
                 <span>${employee.name.split(' ')[0]}</span>
                 <button class="btn-remove" data-id="${employee.id}" title="Remove from zone">
                     <span class="material-icons">close</span>
@@ -269,6 +287,12 @@ function renderFloorPlan() {
             });
             
             // NOTE: Le clic pour ouvrir le profil n'est pas inclus ici pour rester minimal.
+            //profile view
+             pill.querySelector('.btn-info').addEventListener('click', (e) => {
+                viewInfo(employee.id);
+            });
+                
+
             
             container.appendChild(pill);
         });
@@ -354,6 +378,7 @@ newWorkerForm.onsubmit = (e) => {
     newWorkerForm.reset();
     photoPreview.style.backgroundImage = 'none';
 };
+
 
 
 // --- LOCAL STORAGE & INIT ---

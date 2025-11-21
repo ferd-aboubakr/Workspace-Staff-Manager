@@ -60,7 +60,7 @@ h1 {
 
 .btn-primary {
     background-color: var(--color-primary);
-    color: white;
+    color: #490201ff;
 }
 
 .btn-secondary {
@@ -104,6 +104,15 @@ h1 {
     border-radius: 50%;
     object-fit: cover;
     margin-right: 15px;
+}
+
+.employee-card button {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border-color : red;
 }
 
 .employee-info {
@@ -174,7 +183,7 @@ h1 {
     display: flex;
     align-items: center;
     background-color: var(--color-primary);
-    color: white;
+    color: black;
     padding: 5px 10px;
     border-radius: 15px;
     font-size: 0.8em;
@@ -191,6 +200,14 @@ h1 {
     height: 30px;
     border-radius: 50%;
     margin-right: 5px;
+}
+
+.zone-employee-pill button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border-color : red ;
 }
 
 .zone-employee-pill .btn-remove {
@@ -357,3 +374,4 @@ form input:not([type="date"]), form select {
     opacity: 0.5;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+
