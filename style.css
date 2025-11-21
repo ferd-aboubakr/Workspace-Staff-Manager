@@ -106,15 +106,6 @@ h1 {
     margin-right: 15px;
 }
 
-.employee-card button {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 15px;
-    border-color : red;
-}
-
 .employee-info {
     flex-grow: 1;
 }
@@ -373,5 +364,79 @@ form input:not([type="date"]), form select {
 .dragging {
     opacity: 0.5;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* PROFILE MODAL STYLES */
+.profile-card {
+    max-width: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.profile-header {
+    background-color: #f4f7f6;
+    padding: 30px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-large-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+
+.profile-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+.role-badge {
+    background-color: #007bff;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-top: 8px;
+    display: inline-block;
+}
+
+.profile-body {
+    padding: 20px 30px;
+}
+
+.contact-info p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.experience-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.exp-item {
+    border-left: 3px solid #007bff;
+    padding-left: 15px;
+    margin-bottom: 15px;
+}
+
+.exp-item strong {
+    display: block;
+    color: #333;
+}
+
+.exp-date {
+    font-size: 0.85rem;
+    color: #888;
 }
 

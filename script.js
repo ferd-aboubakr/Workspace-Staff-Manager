@@ -8,6 +8,8 @@ const experiencesContainer = document.getElementById('experiencesContainer');
 const addExperienceBtn = document.getElementById('addExperienceBtn');
 const workerPhotoUrlInput = document.getElementById('workerPhotoUrl');
 const photoPreview = document.getElementById('photoPreview');
+const modalEmployeeProfile = document.getElementById('modalEmployeeProfile');
+const profileDetails = document.getElementById('profileDetails');
 
 const DEFAULT_PHOTO = 'https://via.placeholder.com/150/000000/FFFFFF/?text=EMP'; 
 
@@ -35,11 +37,13 @@ closeModalBtns.forEach(btn => {
     btn.onclick = (e) => closeModal(e.target.closest('.modal'));
 });
 
-window.onclick = (event) => {
+ window.onclick = (event) => {
     if (event.target == modalNewWorker) {
         closeModal(modalNewWorker);
     }
-    // Gérer la fermeture de la modale de sélection d'affectation si elle est ouverte
+    if (event.target == modalEmployeeProfile) {
+        closeModal(modalEmployeeProfile);
+    }
     if (event.target.classList.contains('assignment-list-modal')) {
          closeModal(event.target);
     }
@@ -146,14 +150,39 @@ function removeEmployeeFromZone(employeeId) {
 }
 
 //affichage du profil 
-function viewInfo(employeeId)
-{
-   const employee = employees.find(e => e.id === employeeId);
-   alert(employee.name)
-   console.log(employee.name)
-   alert(employee.role)
-  
+function viewInfo(employeeId) {
+    const employee = employees.find(e => e.id === employeeId);
+    if (!employee) return;
 
+    const experiencesHtml = employee.experiences.length > 0 
+        ? employee.experiences.map(exp => `
+            <li class="exp-item">
+                <strong>${exp.company}</strong>
+                <span class="exp-date">${exp.start} to ${exp.end}</span>
+            </li>
+          `).join('') 
+        : '<li>No experience recorded.</li>';
+
+    profileDetails.innerHTML = `
+        <div class="profile-header">
+            <img src="${employee.photoUrl || DEFAULT_PHOTO}" alt="${employee.name}" class="profile-large-img">
+            <h2>${employee.name}</h2>
+            <span class="role-badge">${employee.role.toUpperCase()}</span>
+        </div>
+        
+        <div class="profile-body">
+            <div class="contact-info">
+                <p><span class="material-icons">email</span> ${employee.email}</p>
+                <p><span class="material-icons">phone</span> ${employee.phone}</p>
+            </div>
+            
+            <h3>Professional Experience</h3>
+            <ul class="experience-list">
+                ${experiencesHtml}
+            </ul>
+        </div>
+    `;
+    openModal(modalEmployeeProfile);
 }
 
 // --- MODALE DE SÉLECTION D'EMPLOYÉ PAR ZONE ---
@@ -224,8 +253,7 @@ function renderUnassignedStaff() {
         card.setAttribute('data-employee-id', employee.id);
         
         card.innerHTML = `
-            <button class="btn-info" id= "view-info">
-            <img src="${employee.photoUrl || DEFAULT_PHOTO}" alt="${employee.name}">
+            <img class="btn-info" src="${employee.photoUrl || DEFAULT_PHOTO}" alt="${employee.name}">
             </button>
             <div class="employee-info">
                 <p><strong>${employee.name}</strong></p>
@@ -241,6 +269,7 @@ function renderUnassignedStaff() {
             deleteEmployee(employee.id);
         });
         card.querySelector('.btn-info').addEventListener('click', (e) => {
+                e.stopPropagation();
                 viewInfo(employee.id);
             });
         
@@ -271,8 +300,7 @@ function renderFloorPlan() {
             pill.setAttribute('data-employee-id', employee.id);
             
             pill.innerHTML = `
-                <button class="btn-info" id="view-info">
-                <img src="${employee.photoUrl || DEFAULT_PHOTO}" alt="${employee.name}">
+                <img class="btn-info" src="${employee.photoUrl || DEFAULT_PHOTO}" alt="${employee.name}">
                 </button>
                 <span>${employee.name.split(' ')[0]}</span>
                 <button class="btn-remove" data-id="${employee.id}" title="Remove from zone">
