@@ -440,3 +440,109 @@ form input:not([type="date"]), form select {
     color: #888;
 }
 
+@media screen and (max-width: 767px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .floor-plan-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 15px;
+    }
+
+    .btn, .btn-add-employee, .btn-remove {
+        padding: 12px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .staff-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .employee-card {
+        min-width: 200px;
+        flex: 1;
+    }
+
+    .floor-plan-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+    .app-container {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 240px;
+        padding: 15px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .floor-plan-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+    .sidebar {
+        width: 260px;
+    }
+
+    .floor-plan-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .zone {
+        padding: 15px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .floor-plan-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+    }
+
+    .app-container {
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+}
